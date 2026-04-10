@@ -17,7 +17,7 @@ const Landing = () => {
             <span className="text-primary">Need It Most</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-            Bug Busters bridges the gap between restaurants with excess food and NGOs serving underprivileged communities in Chennai. Together, we fight hunger and reduce waste.
+            Feast Bridge connects restaurants with excess food to NGOs serving underprivileged communities in Chennai. Together, we fight hunger and reduce waste.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link to="/login">
@@ -58,7 +58,7 @@ const Landing = () => {
           <p className="text-center text-muted-foreground mb-12 max-w-xl mx-auto">A simple three-step process to turn surplus food into meals for those in need.</p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {[
-              { step: "1", title: "List Surplus Food", desc: "Restaurant owners log in and post details about excess food — type, quantity, and pickup window." },
+              { step: "1", title: "List Surplus Food", desc: "Restaurant owners register and post details about excess food — type, quantity, and pickup window." },
               { step: "2", title: "NGOs Get Notified", desc: "Registered NGOs see available food on the map and receive instant alerts for nearby listings." },
               { step: "3", title: "Claim & Pick Up", desc: "NGOs claim the food and pick it up within the given time. Waste reduced, lives fed!" },
             ].map((item, i) => (
@@ -78,10 +78,10 @@ const Landing = () => {
       <section className="bg-primary py-16">
         <div className="mx-auto max-w-3xl px-4 text-center">
           <h2 className="text-3xl font-bold text-primary-foreground mb-4">Join the Movement</h2>
-          <p className="text-primary-foreground/80 mb-8">Whether you're a restaurant owner or an NGO, your contribution makes a difference. Sign up today and help us build a hunger-free Chennai.</p>
+          <p className="text-primary-foreground/80 mb-8">Whether you're a restaurant owner or an NGO, your contribution makes a difference. Register today and help us build a hunger-free Chennai.</p>
           <Link to="/login">
             <Button variant="secondary" size="lg" className="text-base px-8">
-              Login Now
+              Register Now
             </Button>
           </Link>
         </div>
@@ -92,9 +92,9 @@ const Landing = () => {
         <div className="mx-auto max-w-7xl px-4 flex flex-col items-center gap-4 text-sm text-muted-foreground md:flex-row md:justify-between">
           <div className="flex items-center gap-2">
             <Leaf className="h-4 w-4 text-primary" />
-            <span>Bug Busters — Food Waste Platform</span>
+            <span>Feast Bridge — Food Waste Management Platform</span>
           </div>
-          <span>© 2026 Bug Busters. Built for a better Chennai.</span>
+          <span>© 2026 Feast Bridge. Developed by <strong className="text-foreground">Team Bug Busters</strong></span>
         </div>
       </footer>
     </div>
