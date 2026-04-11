@@ -1,8 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Leaf, LogOut, Menu, X } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 import { useState } from "react";
+import feastLogo from "@/assets/feast-bridge-logo.png";
 
 const Navbar = () => {
   const { user, logout, loading } = useAuth();
@@ -17,8 +18,8 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
-        <Link to="/" className="flex items-center gap-2 font-bold text-xl">
-          <Leaf className="h-6 w-6 text-primary" />
+        <Link to="/" className="flex items-center gap-2.5 font-bold text-xl">
+          <img src={feastLogo} alt="Feast Bridge" className="h-9 w-9 rounded-full shadow-md" />
           <span className="text-foreground">Feast Bridge</span>
         </Link>
 
