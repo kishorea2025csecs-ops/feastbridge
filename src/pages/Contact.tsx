@@ -58,9 +58,9 @@ const Contact = () => {
 
           <div className="space-y-6">
             {[
-              { icon: Mail, title: "Email", info: "support@bugbusters.org" },
+              { icon: Mail, title: "Email", info: "bugbustersteam2@gmail.com" },
               { icon: Phone, title: "Phone", info: "+91 44 2345 6789" },
-              { icon: MapPin, title: "Address", info: "123 Green Street, T. Nagar, Chennai 600017" },
+              { icon: MapPin, title: "Address", info: "Rajalakshmi Habitat, Chennai" },
             ].map((item, i) => (
               <Card key={i} className="rounded-2xl shadow-md border-primary/10 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
                 <CardContent className="flex items-start gap-4 p-5">
