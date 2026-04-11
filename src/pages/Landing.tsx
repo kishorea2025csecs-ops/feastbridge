@@ -1,13 +1,24 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Leaf, Utensils, Users, TrendingDown, ArrowRight } from "lucide-react";
+import feastLogo from "@/assets/feast-bridge-logo.png";
 
 const Landing = () => {
   return (
     <div className="flex flex-col">
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/10 py-20 md:py-32">
-        <div className="mx-auto max-w-7xl px-4 text-center">
+        {/* Subtle floating logo watermark */}
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-[0.07] pointer-events-none hidden lg:block">
+          <img src={feastLogo} alt="" className="w-[500px] h-[500px] object-contain" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 text-center">
+          <img
+            src={feastLogo}
+            alt="Feast Bridge Logo"
+            className="mx-auto mb-8 h-32 w-32 rounded-full shadow-xl shadow-primary/20 border-4 border-primary/20 animate-fade-in"
+          />
           <div className="mx-auto inline-flex items-center gap-2 rounded-full border bg-background px-4 py-1.5 text-sm text-muted-foreground mb-6">
             <Leaf className="h-4 w-4 text-primary" />
             Reducing Food Waste in Chennai
@@ -62,8 +73,8 @@ const Landing = () => {
               { step: "2", title: "NGOs Get Notified", desc: "Registered NGOs see available food on the map and receive instant alerts for nearby listings." },
               { step: "3", title: "Claim & Pick Up", desc: "NGOs claim the food and pick it up within the given time. Waste reduced, lives fed!" },
             ].map((item, i) => (
-              <div key={i} className="rounded-xl border bg-card p-8 text-center transition-shadow hover:shadow-md">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-xl font-bold">
+              <div key={i} className="rounded-2xl border bg-card p-8 text-center transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1">
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground text-xl font-bold shadow-lg shadow-primary/25">
                   {item.step}
                 </div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">{item.title}</h3>
@@ -75,8 +86,11 @@ const Landing = () => {
       </section>
 
       {/* CTA */}
-      <section className="bg-primary py-16">
-        <div className="mx-auto max-w-3xl px-4 text-center">
+      <section className="relative bg-primary py-16 overflow-hidden">
+        <div className="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center">
+          <img src={feastLogo} alt="" className="w-96 h-96 object-contain" />
+        </div>
+        <div className="relative z-10 mx-auto max-w-3xl px-4 text-center">
           <h2 className="text-3xl font-bold text-primary-foreground mb-4">Join the Movement</h2>
           <p className="text-primary-foreground/80 mb-8">Whether you're a restaurant owner or an NGO, your contribution makes a difference. Register today and help us build a hunger-free Chennai.</p>
           <Link to="/login">
@@ -91,7 +105,7 @@ const Landing = () => {
       <footer className="border-t py-8">
         <div className="mx-auto max-w-7xl px-4 flex flex-col items-center gap-4 text-sm text-muted-foreground md:flex-row md:justify-between">
           <div className="flex items-center gap-2">
-            <Leaf className="h-4 w-4 text-primary" />
+            <img src={feastLogo} alt="Feast Bridge" className="h-6 w-6 rounded-full" />
             <span>Feast Bridge — Food Waste Management Platform</span>
           </div>
           <span>© 2026 Feast Bridge. Developed by <strong className="text-foreground">Team Bug Busters</strong></span>
