@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      pickup_verifications: {
+        Row: {
+          created_at: string
+          driver_photo_url: string | null
+          id: string
+          listing_id: string
+          needs_truck: boolean
+          ngo_name: string
+          ngo_user_id: string
+          restaurant_name: string
+          status: string
+          truck_number_plate_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          driver_photo_url?: string | null
+          id?: string
+          listing_id: string
+          needs_truck?: boolean
+          ngo_name: string
+          ngo_user_id: string
+          restaurant_name: string
+          status?: string
+          truck_number_plate_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          driver_photo_url?: string | null
+          id?: string
+          listing_id?: string
+          needs_truck?: boolean
+          ngo_name?: string
+          ngo_user_id?: string
+          restaurant_name?: string
+          status?: string
+          truck_number_plate_url?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           address: string | null
