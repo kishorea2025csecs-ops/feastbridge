@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, MapPin, Send } from "lucide-react";
 import feastLogo from "@/assets/feast-bridge-logo.png";
 
 const Contact = () => {
@@ -23,7 +23,6 @@ const Contact = () => {
 
   return (
     <div className="relative min-h-[calc(100vh-4rem)]">
-      {/* Background watermark */}
       <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
         <img src={feastLogo} alt="" className="w-[600px] h-[600px] object-contain" />
       </div>
@@ -59,7 +58,6 @@ const Contact = () => {
           <div className="space-y-6">
             {[
               { icon: Mail, title: "Email", info: "bugbustersteam2@gmail.com" },
-              { icon: Phone, title: "Phone", info: "+91 44 2345 6789" },
               { icon: MapPin, title: "Address", info: "Rajalakshmi Habitat, Chennai" },
             ].map((item, i) => (
               <Card key={i} className="rounded-2xl shadow-md border-primary/10 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">

@@ -86,6 +86,24 @@
   }
 }
 
+@layer utilities {
+  .btn-liquid {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-liquid::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), hsl(var(--primary) / 0.3) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .btn-liquid:hover::before {
+    opacity: 1;
+  }
+}
+
 @keyframes loading-bar {
   0% { width: 0%; }
   100% { width: 100%; }
