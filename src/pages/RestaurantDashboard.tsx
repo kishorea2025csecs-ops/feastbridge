@@ -6,15 +6,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Package, Clock } from "lucide-react";
+import { Plus, Package, Clock, Truck, CheckCircle, XCircle, Eye, X } from "lucide-react";
 
 const RestaurantDashboard = () => {
   const { user } = useAuth();
-  const { listings, addListing } = useFood();
+  const { listings, addListing, verifications, updateVerificationStatus } = useFood();
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ foodType: "", quantity: "", pickupTime: "", expiry: "" });
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const myListings = listings.filter(l => l.restaurantName === user?.name);
+  const myVerifications = verifications.filter(v => v.restaurant_name === user?.name);
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
@@ -81,6 +83,73 @@ const RestaurantDashboard = () => {
         </Card>
       )}
 
+      {/* Pickup Verification Requests */}
+      {myVerifications.filter(v => v.needs_truck).length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <Truck className="h-5 w-5 text-primary" />
+            Pickup Verification Requests
+          </h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            {myVerifications.filter(v => v.needs_truck).map(v => (
+              <Card key={v.id} className="border-2 border-primary/20">
+                <CardContent className="p-5">
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <h3 className="font-semibold text-foreground">{v.ngo_name}</h3>
+                      <p className="text-xs text-muted-foreground">Listing: {v.listing_id}</p>
+                    </div>
+                    <Badge variant="outline" className={
+                      v.status === "verified" ? "bg-green-100 text-green-800 border-green-200" :
+                      v.status === "rejected" ? "bg-red-100 text-red-800 border-red-200" :
+                      "bg-yellow-100 text-yellow-800 border-yellow-200"
+                    }>
+                      {v.status}
+                    </Badge>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3 mb-4">
+                    {v.truck_number_plate_url && (
+                      <div className="space-y-1.5">
+                        <p className="text-xs font-medium text-muted-foreground">Truck Number Plate</p>
+                        <div className="relative group cursor-pointer" onClick={() => setPreviewImage(v.truck_number_plate_url)}>
+                          <img src={v.truck_number_plate_url} alt="Truck number plate" className="w-full h-28 object-cover rounded-lg border border-border" />
+                          <div className="absolute inset-0 bg-black/40 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <Eye className="h-5 w-5 text-white" />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {v.driver_photo_url && (
+                      <div className="space-y-1.5">
+                        <p className="text-xs font-medium text-muted-foreground">Driver Photo</p>
+                        <div className="relative group cursor-pointer" onClick={() => setPreviewImage(v.driver_photo_url)}>
+                          <img src={v.driver_photo_url} alt="Driver" className="w-full h-28 object-cover rounded-lg border border-border" />
+                          <div className="absolute inset-0 bg-black/40 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <Eye className="h-5 w-5 text-white" />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {v.status === "pending" && (
+                    <div className="flex gap-2">
+                      <Button size="sm" className="flex-1 gap-1.5 bg-green-600 hover:bg-green-700" onClick={() => updateVerificationStatus(v.id, "verified")}>
+                        <CheckCircle className="h-3.5 w-3.5" /> Verify
+                      </Button>
+                      <Button size="sm" variant="destructive" className="flex-1 gap-1.5" onClick={() => updateVerificationStatus(v.id, "rejected")}>
+                        <XCircle className="h-3.5 w-3.5" /> Reject
+                      </Button>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
       <h2 className="text-lg font-semibold mb-4">Your Listings</h2>
       {myListings.length === 0 ? (
         <Card className="p-8 text-center text-muted-foreground">
@@ -105,6 +174,18 @@ const RestaurantDashboard = () => {
               </CardContent>
             </Card>
           ))}
+        </div>
+      )}
+
+      {/* Image Preview Modal */}
+      {previewImage && (
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4" onClick={() => setPreviewImage(null)}>
+          <div className="relative max-w-2xl max-h-[80vh]">
+            <button className="absolute -top-10 right-0 text-white hover:text-white/80" onClick={() => setPreviewImage(null)}>
+              <X className="h-6 w-6" />
+            </button>
+            <img src={previewImage} alt="Preview" className="max-w-full max-h-[80vh] object-contain rounded-lg" />
+          </div>
         </div>
       )}
     </div>
