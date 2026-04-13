@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Leaf } from "lucide-react";
-import splashVideo from "@/assets/splash-video.mp4.asset.json";
 
 const STEPS = [
   { icon: "🍽️", label: "Packing surplus food…" },
@@ -11,7 +10,6 @@ const STEPS = [
 const SplashScreen = ({ onFinish }: { onFinish: () => void }) => {
   const [fadeOut, setFadeOut] = useState(false);
   const [step, setStep] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     // Cycle through story steps
@@ -33,18 +31,8 @@ const SplashScreen = ({ onFinish }: { onFinish: () => void }) => {
         fadeOut ? "opacity-0" : "opacity-100"
       }`}
     >
-      {/* Background video */}
-      <video
-        ref={videoRef}
-        src={splashVideo.url}
-        autoPlay
-        muted
-        playsInline
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-
-      {/* Dark overlay for readability */}
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-primary/10" />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center px-6 text-center">
