@@ -39,7 +39,7 @@ const SplashScreen = ({ onFinish }: { onFinish: () => void }) => {
         {/* Brand */}
         <div className="mb-8 flex items-center gap-2 animate-fade-in">
           <Leaf className="h-8 w-8 text-primary drop-shadow-lg" />
-          <h1 className="text-4xl font-bold text-white tracking-tight drop-shadow-lg">
+          <h1 className="text-4xl font-bold text-foreground tracking-tight">
             Feast Bridge
           </h1>
         </div>
@@ -49,31 +49,31 @@ const SplashScreen = ({ onFinish }: { onFinish: () => void }) => {
           {STEPS.map((s, i) => (
             <div
               key={i}
-              className={`flex items-center gap-3 rounded-2xl bg-white/10 px-5 py-3 backdrop-blur-md border border-white/10 transition-all duration-700 ${
+              className={`flex items-center gap-3 rounded-2xl bg-primary/10 px-5 py-3 border border-border transition-all duration-700 ${
                 i <= step
                   ? "opacity-100 translate-y-0 scale-100"
                   : "opacity-0 translate-y-4 scale-95"
-              } ${i === step ? "ring-2 ring-primary/60 bg-white/20" : ""}`}
+              } ${i === step ? "ring-2 ring-primary/60 bg-primary/20" : ""}`}
             >
               <span className="text-2xl">{s.icon}</span>
-              <span className="text-sm font-medium text-white/90">{s.label}</span>
+              <span className="text-sm font-medium text-foreground">{s.label}</span>
               {i < step && (
-                <span className="ml-1 text-green-400 animate-scale-in">✓</span>
+                <span className="ml-1 text-primary animate-scale-in">✓</span>
               )}
             </div>
           ))}
         </div>
 
         {/* Loading bar */}
-        <div className="w-56 h-1.5 rounded-full bg-white/20 overflow-hidden">
+        <div className="w-56 h-1.5 rounded-full bg-muted overflow-hidden">
           <div
             className="h-full rounded-full bg-primary"
             style={{ animation: "loading-bar 4.5s ease-in-out forwards" }}
           />
         </div>
 
-        <p className="mt-8 text-xs text-white/60 animate-fade-in">
-          By <strong className="text-white/80">Team Bug Busters</strong>
+        <p className="mt-8 text-xs text-muted-foreground animate-fade-in">
+          By <strong className="text-foreground">Team Bug Busters</strong>
         </p>
       </div>
     </div>
