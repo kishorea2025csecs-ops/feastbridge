@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Leaf, Utensils, Users, TrendingDown, ArrowRight } from "lucide-react";
+import ChatBot from "@/components/ChatBot";
 import feastLogo from "@/assets/feast-bridge-logo.png";
 
 const Landing = () => {
@@ -111,6 +112,7 @@ const Landing = () => {
           <span>© 2026 Feast Bridge. Developed by <strong className="text-foreground">Team Bug Busters</strong></span>
         </div>
       </footer>
+      <ChatBot />
     </div>
   );
 };
