@@ -14,6 +14,7 @@ import Dashboard from "@/pages/Dashboard";
 import MapPage from "@/pages/MapPage";
 import Contact from "@/pages/Contact";
 import NotFound from "@/pages/NotFound";
+import ChatBot from "@/components/ChatBot";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ const App = () => {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
+              <ChatBot />
             </BrowserRouter>
           </FoodProvider>
         </AuthProvider>
