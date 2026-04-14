@@ -41,8 +41,9 @@ const NgoDashboard = () => {
     const path = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
     const { error } = await supabase.storage.from("verification-photos").upload(path, file);
     if (error) { toast({ title: "Upload Error", description: error.message, variant: "destructive" }); return null; }
-    const { data } = supabase.storage.from("verification-photos").getPublicUrl(path);
-    return data.publicUrl;
+    const { data: signedData, error: signedError } = await supabase.storage.from("verification-photos").createSignedUrl(path, 3600);
+    if (signedError || !signedData?.signedUrl) { toast({ title: "URL Error", description: "Could not generate signed URL.", variant: "destructive" }); return null; }
+    return signedData.signedUrl;
   };
 
   const handleClaimWithVerification = async (listing: typeof available[0]) => {
