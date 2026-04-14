@@ -46,6 +46,7 @@ async function streamChat({
       let line = buf.slice(0, idx);
       buf = buf.slice(idx + 1);
       if (line.endsWith("\r")) line = line.slice(0, -1);
+      if (!line || line.startsWith(":")) continue;
       if (!line.startsWith("data: ")) continue;
       const json = line.slice(6).trim();
       if (json === "[DONE]") { onDone(); return; }
@@ -53,7 +54,9 @@ async function streamChat({
         const p = JSON.parse(json);
         const c = p.choices?.[0]?.delta?.content;
         if (c) onDelta(c);
-      } catch { buf = line + "\n" + buf; break; }
+      } catch {
+        // skip malformed chunks
+      }
     }
   }
   onDone();
