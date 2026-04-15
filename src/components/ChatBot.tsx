@@ -69,7 +69,38 @@ const ChatBot = () => {
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [listening, setListening] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
+  const recognitionRef = useRef<any>(null);
+
+  const startListening = () => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setMessages((p) => [...p, { role: "assistant", content: "Sorry, your browser doesn't support voice input. Try Chrome or Edge." }]);
+      return;
+    }
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognitionRef.current = recognition;
+
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      setInput(transcript);
+      setListening(false);
+    };
+    recognition.onerror = () => setListening(false);
+    recognition.onend = () => setListening(false);
+
+    recognition.start();
+    setListening(true);
+  };
+
+  const stopListening = () => {
+    recognitionRef.current?.stop();
+    setListening(false);
+  };
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
