@@ -226,6 +226,19 @@ const ChatBot = () => {
                 disabled={loading}
               />
               <button
+                type="button"
+                onClick={listening ? stopListening : startListening}
+                disabled={loading}
+                className={`flex h-10 w-10 items-center justify-center rounded-xl shadow-md transition-all hover:scale-105 active:scale-95 disabled:opacity-50 ${
+                  listening
+                    ? "bg-destructive text-destructive-foreground animate-pulse"
+                    : "bg-muted text-muted-foreground hover:text-foreground"
+                }`}
+                aria-label={listening ? "Stop recording" : "Start voice input"}
+              >
+                {listening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+              </button>
+              <button
                 type="submit"
                 disabled={loading || !input.trim()}
                 className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
