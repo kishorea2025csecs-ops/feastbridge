@@ -10,6 +10,7 @@ export interface FoodListing {
   lat: number;
   lng: number;
   address: string;
+  imageUrl?: string;
 }
 
 export interface MapLocation {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useFood } from "@/contexts/FoodContext";
 import { Button } from "@/components/ui/button";
@@ -6,21 +6,38 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Package, Clock, Truck, CheckCircle, XCircle, Eye, X } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
+import { Plus, Package, Clock, Truck, CheckCircle, XCircle, Eye, X, Upload, Camera } from "lucide-react";
 
 const RestaurantDashboard = () => {
   const { user } = useAuth();
   const { listings, addListing, verifications, updateVerificationStatus } = useFood();
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ foodType: "", quantity: "", pickupTime: "", expiry: "" });
+  const [foodImage, setFoodImage] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const foodImageInputRef = useRef<HTMLInputElement>(null);
 
   const myListings = listings.filter(l => l.restaurantName === user?.name);
   const myVerifications = verifications.filter(v => v.restaurant_name === user?.name);
 
+  const handleFoodImageSelect = (file: File) => {
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ title: "Image too large", description: "Please upload an image under 5MB.", variant: "destructive" });
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => setFoodImage(reader.result as string);
+    reader.readAsDataURL(file);
+  };
+
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.foodType || !form.quantity || !form.pickupTime || !form.expiry) return;
+    if (!foodImage) {
+      toast({ title: "Food photo required", description: "Please upload a photo of the food.", variant: "destructive" });
+      return;
+    }
     addListing({
       restaurantName: user?.name || "",
       foodType: form.foodType,
@@ -30,8 +47,10 @@ const RestaurantDashboard = () => {
       lat: 13.0827,
       lng: 80.2707,
       address: "Chennai",
+      imageUrl: foodImage,
     });
     setForm({ foodType: "", quantity: "", pickupTime: "", expiry: "" });
+    setFoodImage(null);
     setShowForm(false);
   };
 
