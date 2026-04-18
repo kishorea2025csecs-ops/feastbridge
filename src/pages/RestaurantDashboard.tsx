@@ -195,7 +195,10 @@ const RestaurantDashboard = () => {
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           {myListings.map(l => (
-            <Card key={l.id}>
+            <Card key={l.id} className="overflow-hidden">
+              {l.imageUrl && (
+                <img src={l.imageUrl} alt={l.foodType} className="w-full h-40 object-cover cursor-pointer" onClick={() => setPreviewImage(l.imageUrl!)} />
+              )}
               <CardContent className="p-5">
                 <div className="flex items-start justify-between mb-3">
                   <h3 className="font-semibold text-foreground">{l.foodType}</h3>
