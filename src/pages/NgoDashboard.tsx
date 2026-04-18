@@ -110,6 +110,9 @@ const NgoDashboard = () => {
         <div className="grid gap-4 md:grid-cols-2 mb-8">
           {available.map(l => (
             <Card key={l.id} className="overflow-hidden">
+              {l.imageUrl && (
+                <img src={l.imageUrl} alt={l.foodType} className="w-full h-40 object-cover" />
+              )}
               <CardContent className="p-5">
                 <div className="flex items-start justify-between mb-2">
                   <div>
