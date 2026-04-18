@@ -93,9 +93,26 @@ const RestaurantDashboard = () => {
                 <Label>Expiry</Label>
                 <Input placeholder="e.g. Today 6:00 PM" value={form.expiry} onChange={e => setForm(f => ({ ...f, expiry: e.target.value }))} />
               </div>
+              <div className="sm:col-span-2 space-y-2">
+                <Label className="flex items-center gap-1.5"><Camera className="h-3.5 w-3.5" /> Food Photo</Label>
+                <input type="file" accept="image/*" className="hidden" ref={foodImageInputRef} onChange={e => e.target.files?.[0] && handleFoodImageSelect(e.target.files[0])} />
+                {foodImage ? (
+                  <div className="relative group/img w-full max-w-sm">
+                    <img src={foodImage} alt="Food preview" className="w-full h-40 object-cover rounded-lg border border-border" />
+                    <button type="button" onClick={() => setFoodImage(null)} className="absolute top-2 right-2 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover/img:opacity-100 transition-opacity">
+                      <X className="h-3 w-3" />
+                    </button>
+                  </div>
+                ) : (
+                  <button type="button" onClick={() => foodImageInputRef.current?.click()} className="w-full max-w-sm h-32 border-2 border-dashed border-muted-foreground/30 rounded-lg flex flex-col items-center justify-center gap-1.5 hover:border-primary/50 hover:bg-primary/5 transition-all">
+                    <Upload className="h-5 w-5 text-muted-foreground" />
+                    <span className="text-xs text-muted-foreground">Upload Food Photo</span>
+                  </button>
+                )}
+              </div>
               <div className="sm:col-span-2 flex gap-2">
                 <Button type="submit">Add Listing</Button>
-                <Button type="button" variant="outline" onClick={() => setShowForm(false)}>Cancel</Button>
+                <Button type="button" variant="outline" onClick={() => { setShowForm(false); setFoodImage(null); }}>Cancel</Button>
               </div>
             </form>
           </CardContent>
